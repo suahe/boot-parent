@@ -1,0 +1,8 @@
+db:
+  num: 1
+  password:
+    '0': cqt@1234
+  url:
+    '0': jdbc:mysql://172.16.252.121:3306/water-nacos-1.1.0?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  user:
+    '0': root
