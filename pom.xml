@@ -27,13 +27,12 @@
         <druid.version>1.1.22</druid.version>
         <skywalking.version>8.3.0</skywalking.version>
         <nacos.version>2.0.3</nacos.version>
+        <commons.version>2.6</commons.version>
     </properties>
 
     <modules>
-        <module>base-core</module>
-        <module>base-system</module>
-        <module>nacos</module>
-        <module>gateway</module>
+        <module>base</module>
+        <module>server</module>
     </modules>
 
     <repositories>
@@ -120,6 +119,12 @@
                 <artifactId>base-core</artifactId>
                 <version>${boot.version}</version>
             </dependency>
+            <!-- base core -->
+            <dependency>
+                <groupId>com.sah</groupId>
+                <artifactId>cloud-core</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
             <!-- base system -->
             <dependency>
                 <groupId>com.sah</groupId>
@@ -127,9 +132,21 @@
                 <version>${boot.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.sah</groupId>
+                <artifactId>gateway</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
+            </dependency>
+
+            <!-- logback-level日志依赖 -->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -188,4 +205,30 @@
             </resource>
         </resources>
     </build>
+
+    <!-- 环境 -->
+    <profiles>
+        <!-- 开发 -->
+        <profile>
+            <id>default</id>
+            <activation>
+                <!--默认激活配置-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--当前环境-->
+                <profile.name>dev</profile.name>
+                <!--配置文件前缀-->
+                <prefix.name>common</prefix.name>
+                <!--Nacos配置中心地址-->
+                <config.server-addr>127.0.0.1:8848</config.server-addr>
+                <!--Nacos配置中心命名空间,用于支持多环境.这里必须使用ID，不能使用名称,默认为空-->
+                <config.namespace></config.namespace>
+                <!--Nacos配置分组名称-->
+                <config.group>DEFAULT_GROUP</config.group>
+                <!--Nacos服务发现地址-->
+                <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
+            </properties>
+        </profile>
+    </profiles>
 </project>
